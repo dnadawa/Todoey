@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/models/task-data.dart';
 import 'package:todoey/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
-
-  final Function onNewTaskAdd;
-  AddTaskScreen({required this.onNewTaskAdd});
-
 
   final TextEditingController controller = TextEditingController();
 
@@ -20,31 +18,15 @@ class AddTaskScreen extends StatelessWidget {
         padding: const EdgeInsets.all(35),
         child: Column(
           children: [
-            Text(
-                'Add Task',
-              style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30
-              ),
-            ),
+            Text('Add Task', style: TextStyle(color: Colors.blueAccent, fontSize: 30),),
 
             TextField(
               autofocus: true,
               controller: controller,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.blueAccent,
-                      width: 3
-                  )
-                ),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.blueAccent,
-                        width: 3
-                    )
-                )
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent, width: 3)),
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent, width: 3)),
               ),
             ),
             SizedBox(height: 30,),
@@ -53,16 +35,10 @@ class AddTaskScreen extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: TextButton(
-                child: Text(
-                  'Add',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18
-                  ),
-                ),
+                child: Text('Add', style: TextStyle(color: Colors.white, fontSize: 18)),
                 style: TextButton.styleFrom(backgroundColor: Colors.blueAccent),
                 onPressed: (){
-                  onNewTaskAdd(Task(controller.text));
+                  Provider.of<TaskData>(context, listen: false).addTask(Task(controller.text));
                   Navigator.pop(context);
                 },
               ),
