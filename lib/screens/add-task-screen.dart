@@ -3,6 +3,10 @@ import 'package:todoey/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
 
+  final Function onNewTaskAdd;
+  AddTaskScreen({required this.onNewTaskAdd});
+
+
   final TextEditingController controller = TextEditingController();
 
   @override
@@ -56,11 +60,10 @@ class AddTaskScreen extends StatelessWidget {
                       fontSize: 18
                   ),
                 ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                ),
+                style: TextButton.styleFrom(backgroundColor: Colors.blueAccent),
                 onPressed: (){
-                  Task task = Task(controller.text);
+                  onNewTaskAdd(Task(controller.text));
+                  Navigator.pop(context);
                 },
               ),
             )
